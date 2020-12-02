@@ -42,24 +42,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-// const mapStateToProps = state => {
-//   return {
-//     num: state
-//   }
-// }
-
-// const mapDispatchToProps = {
-//   add: () => {
-//     return {
-//       type: 'ADD'
-//     }
-//   },
-//   minus: () => {
-//     return {
-//       type: 'MINUS'
-//     }
-//   }
-// }
 
 @connect(
   state => {
