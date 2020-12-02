@@ -1,5 +1,5 @@
-import { createStore, applyMiddleware } from "redux";
-// import { createStore, applyMiddleware } from '../myRedux'
+// import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from '../myRedux'
 // import logger from 'redux-logger'
 // import thunk from "redux-thunk";
 import { logger, thunk } from '../myRedux/middlewares'

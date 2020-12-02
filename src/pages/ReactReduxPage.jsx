@@ -1,29 +1,97 @@
+// import React, { Component } from 'react'
+// import { connect} from 'react-redux'
+
+// const mapStateToProps = state => {
+//   return {
+//     num: state
+//   }
+// }
+
+// const mapDispatchToProps = {
+//   add: ()=> {
+//     return {
+//       type: 'ADD'
+//     }
+//   },
+//   minus: ()=> {
+//     return {
+//       type: 'MINUS'
+//     }
+//   }
+// }
+
+// @connect(mapStateToProps, mapDispatchToProps)
+// class ReactReduxPage extends Component {
+//   render() {
+//     const {num, add, minus} = this.props
+//     return (
+//       <div>
+//         <h1>ReactReduxPage</h1>
+//         <p>num:{num}</p>
+//         <button onClick={add}>add</button>
+//         <button onClick={minus}>minus</button>
+//       </div>
+//     )
+//   }
+// }
+
+// export default ReactReduxPage
+
+
 import React, { Component } from 'react'
-import { connect} from 'react-redux'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-const mapStateToProps = state => {
-  return {
-    num: state
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     num: state
+//   }
+// }
 
-const mapDispatchToProps = {
-  add: ()=> {
+// const mapDispatchToProps = {
+//   add: () => {
+//     return {
+//       type: 'ADD'
+//     }
+//   },
+//   minus: () => {
+//     return {
+//       type: 'MINUS'
+//     }
+//   }
+// }
+
+@connect(
+  state => {
     return {
-      type: 'ADD'
+      num: state
     }
   },
-  minus: ()=> {
+  dispatch => {
+    let creators = {
+      add: payload => {
+        return {
+          type: 'ADD',
+          payload
+        }
+      },
+      minus: () => {
+        return {
+          type: 'MINUS'
+        }
+      }
+    }
+    creators = bindActionCreators(creators, dispatch)
     return {
-      type: 'MINUS'
+      dispatch,
+      ...creators
     }
   }
-}
-
-@connect(mapStateToProps, mapDispatchToProps)
+)
 class ReactReduxPage extends Component {
+
   render() {
-    const {num, add, minus} = this.props
+    const { num, add, minus } = this.props
     return (
       <div>
         <h1>ReactReduxPage</h1>
@@ -35,5 +103,4 @@ class ReactReduxPage extends Component {
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ReactReduxPage)
 export default ReactReduxPage
