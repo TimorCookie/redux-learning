@@ -39,10 +39,10 @@
 
 
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
 import { bindActionCreators } from '../myRedux'
-
+import {connect} from '../myReactRedux'
 
 @connect(
   state => {
@@ -74,7 +74,6 @@ import { bindActionCreators } from '../myRedux'
 class ReactReduxPage extends Component {
 
   render() {
-    console.log(bindActionCreators)
     const { num, add, minus } = this.props
     return (
       <div>
