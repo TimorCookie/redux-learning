@@ -1,5 +1,7 @@
 import React, { useLayoutEffect, useReducer } from 'react';
-import {bindActionCreators} from '../myRedux'
+// import { useSelector } from 'react-redux';
+import { bindActionCreators } from '../myRedux'
+
 // * step1: 创建 Context 对象
 const Context = React.createContext();
 // * step2: 通过 Provider 传递 value
@@ -13,20 +15,44 @@ export const connect = (mapStateToProps = state => state, mapDispatchToProps) =>
   const stateProps = mapStateToProps(getState())
   let dispatchProps = { dispatch }
 
-  if(typeof mapDispatchToProps === 'function') {
+  if (typeof mapDispatchToProps === 'function') {
     dispatchProps = mapDispatchToProps(dispatch)
-  } else if(typeof mapDispatchToProps === 'object') {
+  } else if (typeof mapDispatchToProps === 'object') {
     dispatchProps = bindActionCreators(mapDispatchToProps, dispatch)
   }
   // ! 订阅更新 （ state 一旦改变，啧执行订阅函数（更新组件））
-  const [, forceUpdate] = useReducer(x=>x+1, 0)
+  const [, forceUpdate] = useReducer(x => x + 1, 0)
   useLayoutEffect(() => {
-    const unSubscribe = store.subscribe(()=> {
+    const unSubscribe = store.subscribe(() => {
       forceUpdate()
     })
-    return ()=> {
+    return () => {
       unSubscribe()
     }
   }, [store])
-  return <WrapperedComponent {...props} {...stateProps} {...dispatchProps}/>
+  return <WrapperedComponent {...props} {...stateProps} {...dispatchProps} />
+}
+
+
+// ! hook 实现原理
+function useStore() {
+  const store = React.useContext(Context)
+  return store
+}
+export function useSelector(selector) {
+  const store = useStore()
+  const { getState } = store;
+  const [, forceUpdate] = useReducer(x => x + 1, 0)
+  useLayoutEffect(() => {
+    const unSubscribe = store.subscribe(() => {
+      forceUpdate()
+    })
+    return () => unSubscribe()
+  }, [store])
+  const selectedState = selector(getState())
+  return selectedState
+}
+export function useDispatch() {
+  const store = useStore();
+  return store.dispatch;
 }

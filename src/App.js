@@ -3,11 +3,13 @@
 // import UseCallbackPage from './pages/UseCallbackPage.jsx'
 // import UseReducerPage from './pages/UseReducerPage.jsx'
 // import './utils'
-import ReactReduxPage from './pages/ReactReduxPage'
+// import ReactReduxPage from './pages/ReactReduxPage'
+import ReactReduxHookPage from './pages/ReactReduxHookPage'
 function App() {
   return (
     <div className="App">
-      <ReactReduxPage />
+      {/* <ReactReduxPage /> */}
+      <ReactReduxHookPage/>
     </div>
   );
 }
